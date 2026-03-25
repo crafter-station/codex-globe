@@ -1,9 +1,16 @@
 "use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState } from "react";
 import { Globe } from "@/components/globe";
 import { ambassadors, continents, stats } from "@/data/ambassadors";
 import type { Ambassador, Continent } from "@/data/ambassadors";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 type GroupBy = "continent" | "country" | "timezone";
 
@@ -34,7 +41,9 @@ function AmbassadorCard({
           className={`fi fi-${ambassador.country.toLowerCase()} fis rounded-sm shrink-0`}
           style={{ width: compact ? 16 : 18, height: compact ? 11 : 13 }}
         />
-        <p className={`font-medium truncate ${compact ? "text-xs" : "text-sm"}`}>
+        <p
+          className={`font-medium truncate ${compact ? "text-xs" : "text-sm"}`}
+        >
           {ambassador.name}
         </p>
       </div>
@@ -49,86 +58,6 @@ function AmbassadorCard({
   );
 }
 
-function AmbassadorChip({
-  ambassador,
-  isSelected,
-  onClick,
-}: {
-  ambassador: Ambassador;
-  isSelected: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all shrink-0 ${
-        isSelected
-          ? "border-emerald-500/50 bg-emerald-500/10"
-          : "border-neutral-800 bg-neutral-950 active:bg-neutral-900"
-      }`}
-    >
-      <span
-        className={`fi fi-${ambassador.country.toLowerCase()} fis rounded-sm shrink-0`}
-        style={{ width: 14, height: 10 }}
-      />
-      <span className="text-xs font-medium whitespace-nowrap">
-        {ambassador.name.split(" ")[0]}
-      </span>
-    </button>
-  );
-}
-
-function MobileBottomSheet({
-  children,
-  expanded,
-  onToggle,
-  count,
-}: {
-  children: React.ReactNode;
-  expanded: boolean;
-  onToggle: () => void;
-  count: number;
-}) {
-  const sheetRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <div
-      ref={sheetRef}
-      className={`absolute bottom-0 left-0 right-0 z-30 bg-black/95 backdrop-blur-md border-t border-neutral-800 rounded-t-2xl transition-all duration-300 ${
-        expanded ? "h-[60dvh]" : "h-auto"
-      }`}
-    >
-      <button
-        onClick={onToggle}
-        className="w-full flex flex-col items-center pt-2 pb-3 px-4"
-      >
-        <div className="w-8 h-1 rounded-full bg-neutral-600 mb-2" />
-        <div className="flex items-center justify-between w-full">
-          <span className="text-xs font-medium text-neutral-300">
-            {count} ambassadors
-          </span>
-          <span className="text-[10px] text-neutral-500">
-            {expanded ? "Collapse" : "Expand"}
-          </span>
-        </div>
-      </button>
-      <div
-        className={`overflow-y-auto px-3 pb-[env(safe-area-inset-bottom,16px)] ${
-          expanded ? "h-[calc(60dvh-56px)]" : "max-h-[30dvh]"
-        }`}
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, black calc(100% - 24px), transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black calc(100% - 24px), transparent)",
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const [view, setView] = useState<"globe" | "grid">("globe");
   const [selected, setSelected] = useState<Ambassador | null>(null);
@@ -137,7 +66,7 @@ export default function Home() {
   );
   const [activeCountry, setActiveCountry] = useState<string | "all">("all");
   const [groupBy, setGroupBy] = useState<GroupBy>("continent");
-  const [sheetExpanded, setSheetExpanded] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const filtered = useMemo(() => {
     let result = ambassadors;
@@ -194,7 +123,7 @@ export default function Home() {
 
   const handleSelect = (a: Ambassador | null) => {
     setSelected(a);
-    if (a && sheetExpanded) setSheetExpanded(false);
+    setDrawerOpen(false);
   };
 
   return (
@@ -360,7 +289,7 @@ export default function Home() {
       {view === "globe" ? (
         <div className="flex-1 flex min-h-0 relative">
           <div className="flex-1 flex items-center justify-center p-2 sm:p-4">
-            <div className="w-full max-w-[min(70dvh,700px)] sm:max-w-[min(80vh,700px)] aspect-square">
+            <div className="w-full max-w-[min(65dvh,700px)] sm:max-w-[min(80vh,700px)] aspect-square">
               <Globe
                 ambassadors={filtered}
                 selected={selected}
@@ -384,14 +313,39 @@ export default function Home() {
             </div>
           </aside>
 
-          <div className="lg:hidden">
-            <MobileBottomSheet
-              expanded={sheetExpanded}
-              onToggle={() => setSheetExpanded(!sheetExpanded)}
-              count={filtered.length}
-            >
-              {sheetExpanded ? (
-                <div className="space-y-1 pb-4">
+          <div className="lg:hidden absolute bottom-4 left-0 right-0 flex justify-center z-30">
+            <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+              <DrawerTrigger asChild>
+                <button className="px-4 py-2 bg-neutral-900/90 backdrop-blur-md border border-neutral-700 rounded-full text-xs font-medium text-neutral-200 shadow-lg active:scale-95 transition-transform">
+                  {filtered.length} ambassadors
+                  {selected && (
+                    <span className="ml-1.5 text-emerald-400">
+                      {selected.name.split(" ")[0]}
+                    </span>
+                  )}
+                </button>
+              </DrawerTrigger>
+              <DrawerContent className="max-h-[85dvh]">
+                <DrawerHeader className="pb-2">
+                  <DrawerTitle className="text-sm font-semibold">
+                    {filtered.length} Ambassadors
+                    {hasFilters && (
+                      <span className="text-neutral-500 font-normal">
+                        {" "}
+                        (filtered)
+                      </span>
+                    )}
+                  </DrawerTitle>
+                </DrawerHeader>
+                <div
+                  className="overflow-y-auto px-4 pb-[env(safe-area-inset-bottom,24px)] space-y-1.5"
+                  style={{
+                    maskImage:
+                      "linear-gradient(to bottom, black calc(100% - 32px), transparent)",
+                    WebkitMaskImage:
+                      "linear-gradient(to bottom, black calc(100% - 32px), transparent)",
+                  }}
+                >
                   {filtered.map((a) => (
                     <AmbassadorCard
                       key={a.name}
@@ -404,21 +358,8 @@ export default function Home() {
                     />
                   ))}
                 </div>
-              ) : (
-                <div className="flex gap-2 overflow-x-auto pb-2">
-                  {filtered.map((a) => (
-                    <AmbassadorChip
-                      key={a.name}
-                      ambassador={a}
-                      isSelected={selected?.name === a.name}
-                      onClick={() =>
-                        handleSelect(selected?.name === a.name ? null : a)
-                      }
-                    />
-                  ))}
-                </div>
-              )}
-            </MobileBottomSheet>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       ) : (

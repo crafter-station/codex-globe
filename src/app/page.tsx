@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Globe } from "@/components/globe";
 import { ambassadors, continents, stats } from "@/data/ambassadors";
 import type { Ambassador, Continent } from "@/data/ambassadors";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Drawer,
   DrawerContent,
@@ -33,7 +34,7 @@ function AmbassadorCard({
       } ${
         isSelected
           ? "border-emerald-500/50 bg-emerald-500/10"
-          : "border-neutral-800 bg-neutral-950 hover:border-neutral-600 hover:bg-neutral-900"
+          : "border-border bg-card hover:border-ring hover:bg-accent"
       }`}
     >
       <div className="flex items-center gap-2">
@@ -48,7 +49,7 @@ function AmbassadorCard({
         </p>
       </div>
       <p
-        className={`text-neutral-500 truncate mt-0.5 ${
+        className={`text-muted-foreground truncate mt-0.5 ${
           compact ? "text-[10px] ml-[24px]" : "text-xs ml-[26px]"
         }`}
       >
@@ -128,12 +129,12 @@ export default function Home() {
 
   return (
     <main className="h-dvh flex flex-col overflow-hidden">
-      <header className="flex items-center justify-between px-4 sm:px-6 py-3 shrink-0 border-b border-neutral-900">
+      <header className="flex items-center justify-between px-4 sm:px-6 py-3 shrink-0 border-b border-border">
         <div>
           <h1 className="text-base sm:text-lg font-semibold tracking-tight">
             Codex Ambassadors
           </h1>
-          <p className="text-[10px] sm:text-xs text-neutral-500 font-mono">
+          <p className="text-[10px] sm:text-xs text-muted-foreground font-mono">
             {filtered.length}
             {hasFilters ? ` / ${stats.ambassadorsWithCity}` : ""} mapped
             {" / "}
@@ -147,27 +148,28 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View source on GitHub"
-            className="text-neutral-500 hover:text-white transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
             </svg>
           </a>
+          <ThemeToggle />
           {hasFilters && (
             <button
               onClick={clearFilters}
-              className="text-[10px] sm:text-xs text-neutral-500 hover:text-white transition-colors"
+              className="text-[10px] sm:text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Clear
             </button>
           )}
-          <div className="flex items-center gap-0.5 sm:gap-1 bg-neutral-900 rounded-lg p-0.5 sm:p-1">
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-secondary rounded-lg p-0.5 sm:p-1">
             <button
               onClick={() => setView("globe")}
               className={`p-1.5 rounded-md transition-colors ${
                 view === "globe"
-                  ? "bg-neutral-700 text-white"
-                  : "text-neutral-400 hover:text-white"
+                  ? "bg-accent-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <svg
@@ -186,8 +188,8 @@ export default function Home() {
               onClick={() => setView("grid")}
               className={`p-1.5 rounded-md transition-colors ${
                 view === "grid"
-                  ? "bg-neutral-700 text-white"
-                  : "text-neutral-400 hover:text-white"
+                  ? "bg-accent-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <svg
@@ -208,7 +210,7 @@ export default function Home() {
       </header>
 
       <div
-        className="flex items-center gap-2 px-3 sm:px-6 py-2 border-b border-neutral-900 shrink-0 overflow-x-auto"
+        className="flex items-center gap-2 px-3 sm:px-6 py-2 border-b border-border shrink-0 overflow-x-auto"
         style={{
           maskImage:
             "linear-gradient(to right, black calc(100% - 20px), transparent)",
@@ -224,8 +226,8 @@ export default function Home() {
             }}
             className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-medium transition-colors ${
               activeContinent === "all"
-                ? "bg-neutral-700 text-white"
-                : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                ? "bg-accent-foreground/10 text-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
             }`}
           >
             All
@@ -241,12 +243,12 @@ export default function Home() {
                 }}
                 className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-medium transition-colors whitespace-nowrap ${
                   activeContinent === c
-                    ? "bg-neutral-700 text-white"
-                    : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                    ? "bg-accent-foreground/10 text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {c}{" "}
-                <span className="text-neutral-600 hidden sm:inline">
+                <span className="text-muted-foreground/50 hidden sm:inline">
                   {count}
                 </span>
               </button>
@@ -254,7 +256,7 @@ export default function Home() {
           })}
         </div>
 
-        <div className="w-px h-4 bg-neutral-800 shrink-0 hidden sm:block" />
+        <div className="w-px h-4 bg-border shrink-0 hidden sm:block" />
 
         <div
           className="hidden sm:flex items-center gap-1 overflow-x-auto"
@@ -281,8 +283,8 @@ export default function Home() {
                 }
                 className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-colors shrink-0 ${
                   activeCountry === c
-                    ? "bg-neutral-700 text-white"
-                    : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                    ? "bg-accent-foreground/10 text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 <span
@@ -290,7 +292,7 @@ export default function Home() {
                   style={{ width: 14, height: 10 }}
                 />
                 {c}{" "}
-                <span className="text-neutral-600">{count}</span>
+                <span className="text-muted-foreground/50">{count}</span>
               </button>
             );
           })}
@@ -309,7 +311,7 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="w-72 border-l border-neutral-900 overflow-y-auto shrink-0 hidden lg:flex flex-col">
+          <aside className="w-72 border-l border-border overflow-y-auto shrink-0 hidden lg:flex flex-col">
             <div className="p-3 space-y-1 flex-1">
               {filtered.map((a) => (
                 <AmbassadorCard
@@ -327,10 +329,10 @@ export default function Home() {
           <div className="lg:hidden absolute bottom-4 left-0 right-0 flex justify-center z-30">
             <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
               <DrawerTrigger asChild>
-                <button className="px-4 py-2 bg-neutral-900/90 backdrop-blur-md border border-neutral-700 rounded-full text-xs font-medium text-neutral-200 shadow-lg active:scale-95 transition-transform">
+                <button className="px-4 py-2 bg-popover/90 backdrop-blur-md border border-border rounded-full text-xs font-medium text-foreground shadow-lg active:scale-95 transition-transform">
                   {filtered.length} ambassadors
                   {selected && (
-                    <span className="ml-1.5 text-emerald-400">
+                    <span className="ml-1.5 text-emerald-500">
                       {selected.name.split(" ")[0]}
                     </span>
                   )}
@@ -341,7 +343,7 @@ export default function Home() {
                   <DrawerTitle className="text-sm font-semibold">
                     {filtered.length} Ambassadors
                     {hasFilters && (
-                      <span className="text-neutral-500 font-normal">
+                      <span className="text-muted-foreground font-normal">
                         {" "}
                         (filtered)
                       </span>
@@ -375,8 +377,8 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex-1 overflow-y-auto">
-          <div className="px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-2 border-b border-neutral-900 sticky top-0 bg-black/80 backdrop-blur-sm z-10">
-            <span className="text-[10px] sm:text-xs text-neutral-500">
+          <div className="px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-2 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+            <span className="text-[10px] sm:text-xs text-muted-foreground">
               Group by
             </span>
             {(["continent", "country", "timezone"] as GroupBy[]).map((g) => (
@@ -385,8 +387,8 @@ export default function Home() {
                 onClick={() => setGroupBy(g)}
                 className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] sm:text-xs font-medium transition-colors capitalize ${
                   groupBy === g
-                    ? "bg-neutral-700 text-white"
-                    : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+                    ? "bg-accent-foreground/10 text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {g}
@@ -405,14 +407,14 @@ export default function Home() {
                     />
                   )}
                   {groupBy === "timezone" && (
-                    <span className="text-neutral-600 font-mono text-xs">
+                    <span className="text-muted-foreground/50 font-mono text-xs">
                       {group}
                     </span>
                   )}
-                  <h2 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-neutral-300">
+                  <h2 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     {groupBy === "timezone" ? "" : group}
                   </h2>
-                  <span className="text-[10px] sm:text-xs text-neutral-600 font-mono">
+                  <span className="text-[10px] sm:text-xs text-muted-foreground/50 font-mono">
                     {members.length}
                   </span>
                 </div>

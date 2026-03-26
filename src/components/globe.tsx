@@ -3,6 +3,7 @@
 import createGlobe from "cobe";
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Ambassador } from "@/data/ambassadors";
+import { useTheme } from "./theme-provider";
 
 interface GlobeProps {
   ambassadors: Ambassador[];
@@ -17,6 +18,37 @@ function locationToAngles(lat: number, lng: number): [number, number] {
   ];
 }
 
+const THEME_CONFIG = {
+  dark: {
+    dark: 1 as const,
+    diffuse: 2.5,
+    mapBrightness: 4,
+    mapBaseBrightness: 0.02,
+    baseColor: [0.12, 0.12, 0.14] as [number, number, number],
+    markerColor: [0.34, 0.82, 0.52] as [number, number, number],
+    glowColor: [0.05, 0.05, 0.08] as [number, number, number],
+    opacity: 0.85,
+    tooltipBg: "bg-popover/95",
+    tooltipBorder: "border-border",
+    tooltipArrowBg: "bg-popover/95",
+    tooltipArrowBorder: "border-border",
+  },
+  light: {
+    dark: 0 as const,
+    diffuse: 3,
+    mapBrightness: 6,
+    mapBaseBrightness: 0.1,
+    baseColor: [0.92, 0.92, 0.94] as [number, number, number],
+    markerColor: [0.15, 0.6, 0.35] as [number, number, number],
+    glowColor: [0.95, 0.95, 0.98] as [number, number, number],
+    opacity: 0.9,
+    tooltipBg: "bg-popover/95",
+    tooltipBorder: "border-border",
+    tooltipArrowBg: "bg-popover/95",
+    tooltipArrowBorder: "border-border",
+  },
+};
+
 export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -28,6 +60,8 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
   const focusRef = useRef<[number, number] | null>(null);
   const [hoveredMarker, setHoveredMarker] = useState<Ambassador | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
+  const { resolved } = useTheme();
+  const config = THEME_CONFIG[resolved];
 
   useEffect(() => {
     if (selected) {
@@ -77,18 +111,18 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
       height: width * 2,
       phi: phiRef.current,
       theta: thetaRef.current,
-      dark: 1,
-      diffuse: 2.5,
+      dark: config.dark,
+      diffuse: config.diffuse,
       mapSamples: 24000,
-      mapBrightness: 4,
-      mapBaseBrightness: 0.02,
-      baseColor: [0.12, 0.12, 0.14],
-      markerColor: [0.34, 0.82, 0.52],
-      glowColor: [0.05, 0.05, 0.08],
+      mapBrightness: config.mapBrightness,
+      mapBaseBrightness: config.mapBaseBrightness,
+      baseColor: config.baseColor,
+      markerColor: config.markerColor,
+      glowColor: config.glowColor,
       markers: cobeMarkers,
       scale: 1,
       offset: [0, 0],
-      opacity: 0.85,
+      opacity: config.opacity,
       markerElevation: 0.05,
     });
 
@@ -175,7 +209,7 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [ambassadors, selected, handleAnchorHover, onSelectAmbassador]);
+  }, [ambassadors, selected, handleAnchorHover, onSelectAmbassador, config]);
 
   return (
     <div
@@ -238,7 +272,7 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
             transform: "translate(-50%, -100%)",
           }}
         >
-          <div className="bg-neutral-900/95 backdrop-blur-sm border border-neutral-700 rounded-lg px-3 py-2 shadow-2xl flex items-center gap-2.5">
+          <div className={`${config.tooltipBg} backdrop-blur-sm border ${config.tooltipBorder} rounded-lg px-3 py-2 shadow-2xl flex items-center gap-2.5`}>
             <span
               className={`fi fi-${hoveredMarker.country.toLowerCase()} fis rounded-sm shrink-0`}
               style={{ width: 20, height: 15 }}
@@ -247,12 +281,12 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
               <p className="text-sm font-medium whitespace-nowrap">
                 {hoveredMarker.name}
               </p>
-              <p className="text-xs text-neutral-400 whitespace-nowrap">
+              <p className="text-xs text-muted-foreground whitespace-nowrap">
                 {hoveredMarker.city}, {hoveredMarker.country}
               </p>
             </div>
           </div>
-          <div className="w-2 h-2 bg-neutral-900/95 border-b border-r border-neutral-700 rotate-45 mx-auto -mt-1" />
+          <div className={`w-2 h-2 ${config.tooltipArrowBg} border-b border-r ${config.tooltipArrowBorder} rotate-45 mx-auto -mt-1`} />
         </div>
       )}
     </div>

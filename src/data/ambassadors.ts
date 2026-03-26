@@ -94,6 +94,10 @@ export const ambassadors: Ambassador[] = [
   { name: "Tom Yang", city: "Taipei", country: "TW", continent: "Asia", timezone: "UTC+8", lat: 25.0330, lng: 121.5654 },
   { name: "Mateo Kruk", city: "Montevideo", country: "UY", continent: "South America", timezone: "UTC-3", lat: -34.9011, lng: -56.1645 },
   { name: "An Nguyen", city: "Ho Chi Minh City", country: "VN", continent: "Asia", timezone: "UTC+7", lat: 10.8231, lng: 106.6297 },
+  { name: "Harry Ng", city: "Taichung City", country: "TW", continent: "Asia", timezone: "UTC+8", lat: 24.1477, lng: 120.6736 },
+  { name: "Son Le Thanh", city: "Ho Chi Minh City", country: "VN", continent: "Asia", timezone: "UTC+7", lat: 10.8231, lng: 106.6297 },
+  { name: "Zane Chee", city: "Singapore", country: "SG", continent: "Asia", timezone: "UTC+8", lat: 1.3521, lng: 103.8198 },
+  { name: "Glaucia Lemos", city: "Rio de Janeiro", country: "BR", continent: "South America", timezone: "UTC-3", lat: -22.9068, lng: -43.1729 },
 ];
 
 export const continents: Continent[] = [
@@ -105,7 +109,7 @@ export const continents: Continent[] = [
 ];
 
 export const stats = {
-  totalMembers: 100,
+  totalMembers: 104,
   ambassadorsWithCity: ambassadors.length,
   countries: [...new Set(ambassadors.map((a) => a.country))].length,
   cities: [...new Set(ambassadors.map((a) => a.city))].length,

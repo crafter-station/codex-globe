@@ -146,6 +146,7 @@ export default function Home() {
             href="https://github.com/crafter-station/codex-globe"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="View source on GitHub"
             className="text-neutral-500 hover:text-white transition-colors"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">

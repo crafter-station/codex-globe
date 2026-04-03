@@ -7,6 +7,7 @@ import { useTheme } from "./theme-provider";
 import { GithubLogo } from "@/components/logos/github";
 import { TwitterLogo } from "@/components/logos/twitter";
 import { LinkedinLogo } from "@/components/logos/linkedin";
+import { ThreadsLogo } from "@/components/logos/threads";
 
 interface GlobeProps {
   ambassadors: Ambassador[];
@@ -288,11 +289,12 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
                 <p className="text-xs text-muted-foreground whitespace-nowrap">
                   {hoveredMarker.city}, {hoveredMarker.country}
                 </p>
-                {(hoveredMarker.github || hoveredMarker.twitter || hoveredMarker.linkedin) && (
+                {(hoveredMarker.github || hoveredMarker.twitter || hoveredMarker.linkedin || hoveredMarker.threads) && (
                   <div className="flex items-center gap-1 text-muted-foreground/60">
                     {hoveredMarker.github && <GithubLogo className="w-2.5 h-2.5" />}
                     {hoveredMarker.twitter && <TwitterLogo className="w-2.5 h-2.5" />}
                     {hoveredMarker.linkedin && <LinkedinLogo className="w-2.5 h-2.5" colorScheme="grayscale" />}
+                    {hoveredMarker.threads && <ThreadsLogo className="w-2.5 h-2.5" />}
                   </div>
                 )}
               </div>

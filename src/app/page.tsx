@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { GithubLogo } from "@/components/logos/github";
 import { TwitterLogo } from "@/components/logos/twitter";
 import { LinkedinLogo } from "@/components/logos/linkedin";
+import { ThreadsLogo } from "@/components/logos/threads";
 import {
   Drawer,
   DrawerContent,
@@ -19,7 +20,7 @@ import {
 type GroupBy = "continent" | "country" | "timezone";
 
 function SocialLinks({ ambassador, compact }: { ambassador: Ambassador; compact?: boolean }) {
-  const hasSocials = ambassador.github || ambassador.twitter || ambassador.linkedin || ambassador.website;
+  const hasSocials = ambassador.github || ambassador.twitter || ambassador.linkedin || ambassador.website || ambassador.threads;
   if (!hasSocials) return null;
 
   const iconSize = compact ? "w-3 h-3" : "w-3.5 h-3.5";
@@ -60,6 +61,18 @@ function SocialLinks({ ambassador, compact }: { ambassador: Ambassador; compact?
           aria-label={`${ambassador.name} on LinkedIn`}
         >
           <LinkedinLogo className={iconSize} colorScheme="grayscale" />
+        </a>
+      )}
+      {ambassador.threads && (
+        <a
+          href={`https://www.threads.net/@${ambassador.threads}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-muted-foreground/50 hover:text-foreground transition-colors"
+          aria-label={`${ambassador.name} on Threads`}
+        >
+          <ThreadsLogo className={iconSize} />
         </a>
       )}
       {ambassador.website && (

@@ -4,6 +4,9 @@ import createGlobe from "cobe";
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Ambassador } from "@/data/ambassadors";
 import { useTheme } from "./theme-provider";
+import { GithubLogo } from "@/components/logos/github";
+import { TwitterLogo } from "@/components/logos/twitter";
+import { LinkedinLogo } from "@/components/logos/linkedin";
 
 interface GlobeProps {
   ambassadors: Ambassador[];
@@ -281,9 +284,18 @@ export function Globe({ ambassadors, selected, onSelectAmbassador }: GlobeProps)
               <p className="text-sm font-medium whitespace-nowrap">
                 {hoveredMarker.name}
               </p>
-              <p className="text-xs text-muted-foreground whitespace-nowrap">
-                {hoveredMarker.city}, {hoveredMarker.country}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-xs text-muted-foreground whitespace-nowrap">
+                  {hoveredMarker.city}, {hoveredMarker.country}
+                </p>
+                {(hoveredMarker.github || hoveredMarker.twitter || hoveredMarker.linkedin) && (
+                  <div className="flex items-center gap-1 text-muted-foreground/60">
+                    {hoveredMarker.github && <GithubLogo className="w-2.5 h-2.5" />}
+                    {hoveredMarker.twitter && <TwitterLogo className="w-2.5 h-2.5" />}
+                    {hoveredMarker.linkedin && <LinkedinLogo className="w-2.5 h-2.5" colorScheme="grayscale" />}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className={`w-2 h-2 ${config.tooltipArrowBg} border-b border-r ${config.tooltipArrowBorder} rotate-45 mx-auto -mt-1`} />

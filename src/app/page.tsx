@@ -5,6 +5,9 @@ import { Globe } from "@/components/globe";
 import { ambassadors, continents, stats } from "@/data/ambassadors";
 import type { Ambassador, Continent } from "@/data/ambassadors";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { GithubLogo } from "@/components/logos/github";
+import { TwitterLogo } from "@/components/logos/twitter";
+import { LinkedinLogo } from "@/components/logos/linkedin";
 import {
   Drawer,
   DrawerContent,
@@ -14,6 +17,70 @@ import {
 } from "@/components/ui/drawer";
 
 type GroupBy = "continent" | "country" | "timezone";
+
+function SocialLinks({ ambassador, compact }: { ambassador: Ambassador; compact?: boolean }) {
+  const hasSocials = ambassador.github || ambassador.twitter || ambassador.linkedin || ambassador.website;
+  if (!hasSocials) return null;
+
+  const iconSize = compact ? "w-3 h-3" : "w-3.5 h-3.5";
+
+  return (
+    <div className={`flex items-center gap-1.5 ${compact ? "ml-[24px] mt-0.5" : "ml-[26px] mt-1"}`}>
+      {ambassador.github && (
+        <a
+          href={`https://github.com/${ambassador.github}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-muted-foreground/50 hover:text-foreground transition-colors"
+          aria-label={`${ambassador.name} on GitHub`}
+        >
+          <GithubLogo className={iconSize} />
+        </a>
+      )}
+      {ambassador.twitter && (
+        <a
+          href={`https://x.com/${ambassador.twitter}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-muted-foreground/50 hover:text-foreground transition-colors"
+          aria-label={`${ambassador.name} on X`}
+        >
+          <TwitterLogo className={iconSize} />
+        </a>
+      )}
+      {ambassador.linkedin && (
+        <a
+          href={ambassador.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-muted-foreground/50 hover:text-foreground transition-colors"
+          aria-label={`${ambassador.name} on LinkedIn`}
+        >
+          <LinkedinLogo className={iconSize} colorScheme="grayscale" />
+        </a>
+      )}
+      {ambassador.website && (
+        <a
+          href={ambassador.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-muted-foreground/50 hover:text-foreground transition-colors"
+          aria-label={`${ambassador.name}'s website`}
+        >
+          <svg className={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+        </a>
+      )}
+    </div>
+  );
+}
 
 function AmbassadorCard({
   ambassador,
@@ -55,6 +122,7 @@ function AmbassadorCard({
       >
         {ambassador.city}
       </p>
+      <SocialLinks ambassador={ambassador} compact={compact} />
     </button>
   );
 }

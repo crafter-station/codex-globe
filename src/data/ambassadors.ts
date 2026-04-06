@@ -75,7 +75,7 @@ export const ambassadors: Ambassador[] = [
   { name: "TatianaSF.com", city: "San Francisco", country: "US", continent: "North America", timezone: "UTC-8", lat: 37.7749, lng: -122.4194, github: "TatianaSF", linkedin: "https://www.linkedin.com/in/tatianasf/", website: "https://tatianasf.com" },
   { name: "Tyler Xiao", city: "Los Angeles", country: "US", continent: "North America", timezone: "UTC-8", lat: 34.0522, lng: -118.2437, github: "lordboba", twitter: "tylerxdev", linkedin: "https://www.linkedin.com/in/tyler-xiao", website: "https://www.tylerx.dev/" },
   { name: "Vaishakh Suresh", city: "Kochi", country: "IN", continent: "Asia", timezone: "UTC+5:30", lat: 9.9312, lng: 76.2673, github: "vaishakh3", linkedin: "https://in.linkedin.com/in/vaishakh3" },
-  { name: "Wenceslao", city: "Las Palmas", country: "ES", continent: "Europe", timezone: "UTC+0", lat: 28.1235, lng: -15.4363 },
+  { name: "Wenceslao Cárceles", city: "Las Palmas de Gran Canaria", country: "ES", continent: "Europe", timezone: "UTC+0", lat: 28.1235, lng: -15.4363, github: "wensicm", linkedin: "https://www.linkedin.com/in/wensicm" },
   { name: "Woojun Jung", city: "Seoul", country: "KR", continent: "Asia", timezone: "UTC+9", lat: 37.5665, lng: 126.978, github: "w00jun", linkedin: "https://www.linkedin.com/in/w00jun" },
   { name: "Yashraj Nayak", city: "Bengaluru", country: "IN", continent: "Asia", timezone: "UTC+5:30", lat: 12.9716, lng: 77.5946, github: "yashrajnayak", twitter: "yashrajnayak", linkedin: "https://www.linkedin.com/in/yashrajnayak/", website: "http://yashrajnayak.dev/" },
   { name: "Yogesh Singh", city: "Mumbai", country: "IN", continent: "Asia", timezone: "UTC+5:30", lat: 19.076, lng: 72.8777 },

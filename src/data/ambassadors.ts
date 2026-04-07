@@ -8,6 +8,7 @@ export type Continent =
 
 export interface Ambassador {
   name: string;
+  displayName?: string;
   city: string;
   country: string;
   continent: Continent;

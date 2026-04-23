@@ -52,7 +52,7 @@ export const ambassadors: Ambassador[] = [
   { name: "Lee Mager", city: "London", country: "GB", continent: "Europe", timezone: "UTC+0", lat: 51.5074, lng: -0.1278, twitter: "Automager", linkedin: "https://uk.linkedin.com/in/lee-mager" },
   { name: "Leonard Gofman", city: "Orlando", country: "US", continent: "North America", timezone: "UTC-5", lat: 28.5383, lng: -81.3792, github: "gofman", linkedin: "https://www.linkedin.com/in/lgofman", website: "https://gofman.dev" },
   { name: "Leonardo Vida", city: "Amsterdam", country: "NL", continent: "Europe", timezone: "UTC+1", lat: 52.3676, lng: 4.9041, github: "leonardovida", twitter: "leonardojvida", linkedin: "https://nl.linkedin.com/in/leonardovida" },
-  { name: "Matteo Giorgetti", city: "Madrid", country: "ES", continent: "Europe", timezone: "UTC+1", lat: 40.4168, lng: -3.7038, linkedin: "https://es.linkedin.com/in/matteo-giorgetti" },
+  { name: "Matteo Giorgetti", city: "Madrid", country: "ES", continent: "Europe", timezone: "UTC+1", lat: 40.4168, lng: -3.7038, linkedin: "https://es.linkedin.com/in/matteo-giorgetti", website: "https://mgiorgetti.com/" },
   { name: "Matthew Blode", city: "Melbourne", country: "AU", continent: "Oceania", timezone: "UTC+11", lat: -37.8136, lng: 144.9631, github: "mblode", twitter: "mattblode", linkedin: "https://www.linkedin.com/in/matthewblode/", website: "https://matthewblode.com/" },
   { name: "Maximiliano Firtman", city: "Buenos Aires", country: "AR", continent: "South America", timezone: "UTC-3", lat: -34.6037, lng: -58.3816, github: "firtman", twitter: "firt", linkedin: "https://www.linkedin.com/in/firtman/", website: "https://firt.dev/" },
   { name: "Mayank Raj", city: "Bangalore", country: "IN", continent: "Asia", timezone: "UTC+5:30", lat: 12.9716, lng: 77.5946, github: "rajmayank", twitter: "Mayank9856", linkedin: "https://in.linkedin.com/in/mayank9856", website: "https://mayankraj.com" },
@@ -104,6 +104,7 @@ export const ambassadors: Ambassador[] = [
   { name: "Son Le Thanh", city: "Ho Chi Minh City", country: "VN", continent: "Asia", timezone: "UTC+7", lat: 10.8231, lng: 106.6297, github: "thsonvt" },
   { name: "Zane Chee", city: "Singapore", country: "SG", continent: "Asia", timezone: "UTC+8", lat: 1.3521, lng: 103.8198, github: "injaneity", twitter: "injaneity", linkedin: "https://sg.linkedin.com/in/zanechee", website: "https://zanechee.dev" },
   { name: "Glaucia Lemos", city: "Rio de Janeiro", country: "BR", continent: "South America", timezone: "UTC-3", lat: -22.9068, lng: -43.1729, github: "glaucia86", twitter: "glaucia_lemos86", linkedin: "https://br.linkedin.com/in/glaucialemos", website: "https://linktr.ee/glaucia_lemos86" },
+  { name: "Othman Moussaoui", city: "Casablanca", country: "MA", continent: "Africa", timezone: "UTC+1", lat: 33.5731, lng: -7.5898, github: "othman-moussaoui", linkedin: "https://www.linkedin.com/in/othman-moussaoui/" },
 ];
 
 export const continents: Continent[] = [
@@ -112,10 +113,11 @@ export const continents: Continent[] = [
   "Europe",
   "Asia",
   "Oceania",
+  "Africa",
 ];
 
 export const stats = {
-  totalMembers: 104,
+  totalMembers: 105,
   ambassadorsWithCity: ambassadors.length,
   countries: [...new Set(ambassadors.map((a) => a.country))].length,
   cities: [...new Set(ambassadors.map((a) => a.city))].length,

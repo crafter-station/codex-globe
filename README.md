@@ -20,6 +20,24 @@ Interactive 3D globe mapping Codex Ambassadors worldwide.
 - Mobile responsive with swipeable drawer (vaul)
 - Mask fades on scrollable areas
 
+## Architecture
+
+```mermaid
+flowchart LR
+  ambassadors["src/data/ambassadors.ts\nAmbassador profiles + map coordinates"]
+  events["src/data/events.ts\nCommunity event locations"]
+  app["Next.js App Router\nsrc/app"]
+  globe["cobe WebGL globe\nsrc/components/globe.tsx"]
+  grid["Grid/list UI\nsrc/app/page.tsx"]
+  vercel["Vercel deployment\ncodex-globe.vercel.app"]
+
+  ambassadors --> app
+  events --> app
+  app --> globe
+  app --> grid
+  app --> vercel
+```
+
 ## Development
 
 ```bash

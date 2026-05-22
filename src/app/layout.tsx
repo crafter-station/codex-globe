@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 const title = "Codex Ambassadors Globe | OpenAI Community Map";
 const description =
-  "Interactive 3D globe mapping 104+ OpenAI Codex Ambassadors across 22+ countries. Explore the global developer community by continent, country, or timezone.";
+  "Interactive 3D globe mapping 110+ OpenAI Codex Ambassadors across 30+ countries. Explore the global developer community by continent, country, or timezone.";
 const url = "https://codex-globe.vercel.app";
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Codex Ambassadors Globe",
-    description: "104+ Codex Ambassadors mapped across 22+ countries",
+    description: "110+ Codex Ambassadors mapped across 30+ countries",
     url,
     siteName: "Codex Globe",
     type: "website",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Codex Ambassadors Globe",
-    description: "104+ Codex Ambassadors mapped across 22+ countries",
+    description: "110+ Codex Ambassadors mapped across 30+ countries",
     images: [{ url: "/og-twitter.png", alt: "Codex Ambassadors Globe" }],
   },
   alternates: {
